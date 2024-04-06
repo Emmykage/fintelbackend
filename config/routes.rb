@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
+  # post '/login', to: "users#login"
 
   namespace :api do
     namespace :v1 do
-      resources :users
+      resources :users do
+        collection do
+          post :login
+
+        end
+
+      end
 
     end
 

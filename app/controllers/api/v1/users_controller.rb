@@ -13,14 +13,26 @@ class Api::V1::UsersController < ApplicationController
     render json: @user
   end
 
-  # POST /users
+  # POST /us
   def create
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created, location: @user
+      token = encode_token({user_id: @user.id})
+      render json: {user: @user, token: token}, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
+  def login
+    @user = User.find_by(email: user_params[:email])
+
+    if @user && @user.authenticate(user_params[:password])
+      token = encode_token({user_id: @user.id})
+      render json: {user: @user, token: token}, status: :ok
+    else
+      render json: {message: "invalid username"}, status: :unprocessable_entity
     end
   end
 
@@ -46,6 +58,6 @@ class Api::V1::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :phone_no, :email, :role, :username)
+      params.require(:user).permit(:first_name, :last_name, :phone_no, :email, :role, :username, :password)
     end
 end
