@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :transactions
   resources :wallets
   # post '/login', to: "users#login"
 
