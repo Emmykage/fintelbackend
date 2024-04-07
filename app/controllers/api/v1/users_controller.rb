@@ -1,7 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :authorize
-  before_action :set_user, only: %i[ show update destroy ]
-
+  before_action :authorize,  exxept: [:create, :login]
   # GET /users
   def index
     @users = User.all

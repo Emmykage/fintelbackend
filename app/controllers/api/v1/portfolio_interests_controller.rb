@@ -1,4 +1,4 @@
-class PortfolioInterestsController < ApplicationController
+class Api::V1::PortfolioInterestsController < ApplicationController
   before_action :set_portfolio_interest, only: %i[ show update destroy ]
 
   # GET /portfolio_interests

@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
-  resources :portfolio_interests
-  resources :portfolios
-  resources :plans
-  resources :transactions
-  resources :wallets
+  
   # post '/login', to: "users#login"
 
   namespace :api do
     namespace :v1 do
+      resources :portfolio_interests
+      resources :portfolios
+      resources :plans
+      resources :transactions
+      resources :wallets
       resources :users do
         collection do
-          post :login
+          post :login, only: [:create]
 
         end
 

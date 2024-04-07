@@ -1,4 +1,4 @@
-class PortfoliosController < ApplicationController
+class Api::V1::PortfoliosController < ApplicationController
   before_action :set_portfolio, only: %i[ show update destroy ]
 
   # GET /portfolios
