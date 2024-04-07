@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :portfolio_interests
+  resources :portfolios
+  resources :plans
   resources :transactions
   resources :wallets
   # post '/login', to: "users#login"

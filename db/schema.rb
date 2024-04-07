@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_07_150320) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_07_151946) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "plans", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.decimal "price"
+    t.string "plan_type"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.decimal "amount"
+    t.integer "transaction_type"
+    t.integer "status"
+    t.string "address"
+    t.integer "coin_type"
+    t.uuid "wallet_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wallet_id"], name: "index_transactions_on_wallet_id"
+  end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name"
@@ -38,5 +59,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_07_150320) do
     t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 
+  add_foreign_key "transactions", "wallets"
   add_foreign_key "wallets", "users"
 end

@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  interest: 9.99
+  portfolio: one
+  widthdrawn: false
+
+two:
+  interest: 9.99
+  portfolio: two
+  widthdrawn: false
