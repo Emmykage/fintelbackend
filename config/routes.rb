@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :wallets
   # post '/login', to: "users#login"
 
   namespace :api do
