@@ -1,9 +1,11 @@
 class Api::V1::TransactionsController < ApplicationController
   before_action :set_transaction, only: %i[ show update destroy ]
-
+  before_action :authorize
+  before_action :get_wallet, only: %i[create]
+  
   # GET /transactions
   def index
-    @transactions = Transaction.all
+    @transactions = @current_user.wallet.transactions
 
     render json: @transactions
   end
@@ -15,10 +17,10 @@ class Api::V1::TransactionsController < ApplicationController
 
   # POST /transactions
   def create
-    @transaction = Transaction.new(transaction_params)
+    @transaction = @wallet.transactions.new(transaction_params)
 
     if @transaction.save
-      render json: @transaction, status: :created, location: @transaction
+      render json: @transaction, status: :created
     else
       render json: @transaction.errors, status: :unprocessable_entity
     end
@@ -44,8 +46,12 @@ class Api::V1::TransactionsController < ApplicationController
       @transaction = Transaction.find(params[:id])
     end
 
+    def get_wallet 
+      @wallet = @current_user.wallet
+      
+    end
     # Only allow a list of trusted parameters through.
     def transaction_params
-      params.require(:transaction).permit(:amount, :transaction_type, :status, :address, :coin_type, :wallet_id)
+      params.require(:transaction).permit(:amount, :transaction_type, :status, :address, :coin_type)
     end
 end

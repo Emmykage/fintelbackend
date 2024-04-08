@@ -1,11 +1,13 @@
 class Api::V1::WalletsController < ApplicationController
   before_action :set_wallet, only: %i[ show update destroy ]
+  before_action :authorize
+  before_action :initialize_wallet
 
   # GET /wallets
   def index
-    @wallets = Wallet.all
+    @wallet = @current_user.wallet
 
-    render json: @wallets
+    render json: @wallet
   end
 
   # GET /wallets/1

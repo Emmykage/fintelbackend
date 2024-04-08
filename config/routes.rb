@@ -11,7 +11,8 @@ Rails.application.routes.draw do
       resources :wallets
       resources :users do
         collection do
-          post :login, only: [:create]
+          post :login
+          get :account
 
         end
 

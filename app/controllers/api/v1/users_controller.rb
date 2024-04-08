@@ -1,5 +1,6 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :authorize,  exxept: [:create, :login]
+  before_action :authorize,  except: [:create, :login]
+  # before_action :
   # GET /users
   def index
     @users = User.all
@@ -12,6 +13,11 @@ class Api::V1::UsersController < ApplicationController
     render json: @user
   end
 
+  def account
+    render json: {user: @current_user}, status: :ok
+
+  end
+
   # POST /us
   def create
      
@@ -21,18 +27,19 @@ class Api::V1::UsersController < ApplicationController
       token = encode_token({user_id: @user.id})
       render json: {user: @user, token: token}, status: :created
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: {error: "failed to create user"}, status: :unprocessable_entity
     end
   end
 
   def login
-    @user = User.find_by(email: user_params[:email])
+    @current_user = User.find_by(email: user_params[:email])
 
-    if @user && @user.authenticate(user_params[:password])
-      token = encode_token({user_id: @user.id})
-      render json: {user: @user, token: token}, status: :ok
+    if @current_user && @current_user.authenticate(user_params[:password])
+      initialize_wallet
+      token = encode_token({user_id: @current_user.id})
+      render json: {user: @current_user, token: token}, status: :ok
     else
-      render json: {message: "invalid username"}, status: :unprocessable_entity
+      render json: {error: "invalid username"}, status: :unprocessable_entity
     end
   end
 

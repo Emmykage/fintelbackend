@@ -34,4 +34,17 @@ class ApplicationController < ActionController::API
         authorized_user
       
     end
+
+        def initialize_wallet 
+            
+            
+
+        @wallet ||= Wallet.find_by(user_id: @current_user.id)
+        # binding.b
+
+        return unless @wallet.nil?
+
+        @wallet = @current_user.create_wallet
+      
+    end
 end
