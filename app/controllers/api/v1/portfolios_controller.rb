@@ -1,5 +1,6 @@
 class Api::V1::PortfoliosController < ApplicationController
   before_action :set_portfolio, only: %i[ show update destroy ]
+  before_action :authorize
 
   # GET /portfolios
   def index
@@ -15,10 +16,11 @@ class Api::V1::PortfoliosController < ApplicationController
 
   # POST /portfolios
   def create
-    @portfolio = Portfolio.new(portfolio_params)
+
+    @portfolio = @current_user.portfolios.new(portfolio_params)
 
     if @portfolio.save
-      render json: @portfolio, status: :created, location: @portfolio
+      render json: @portfolio, status: :created
     else
       render json: @portfolio.errors, status: :unprocessable_entity
     end
@@ -46,6 +48,7 @@ class Api::V1::PortfoliosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def portfolio_params
-      params.require(:portfolio).permit(:amount, :paid, :user_id, :plan_id, :paid)
+
+      params.require(:portfolio).permit(:amount, :paid, :plan_id, :paid)
     end
 end

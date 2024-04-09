@@ -7,3 +7,5 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+platinum = Plan.create(name: 'Platinum Plan (29%) Monthly', value: 'Platinum')
+diamond = Plan.create(name: 'Diamond Plan (35%) Monthly', value: 'Diamond')

@@ -3,6 +3,7 @@ class Api::V1::PlansController < ApplicationController
 
   # GET /plans
   def index
+    # binding.b
     @plans = Plan.all
 
     render json: @plans
