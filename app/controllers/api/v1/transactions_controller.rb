@@ -1,14 +1,20 @@
 class Api::V1::TransactionsController < ApplicationController
   before_action :set_transaction, only: %i[ show update destroy ]
   before_action :authorize
-  before_action :get_wallet, only: %i[create]
+  before_action :get_wallet, only: %i[user_transaction]
   
   # GET /transactions
   def index
-    @transactions = @current_user.wallet.transactions
+    @transactions = Transaction.all
 
     render json: @transactions
   end
+
+  def user_transaction
+    @transactions = @current_user.wallet.transactions
+
+    render json: @transactions
+    end
 
   # GET /transactions/1
   def show

@@ -1,5 +1,6 @@
 class Wallet < ApplicationRecord
   belongs_to :user
+  has_one :earning
   has_many :transactions
 
   def deposit
@@ -21,4 +22,16 @@ class Wallet < ApplicationRecord
     deposit - withdrawal
 
   end  
+
+  def profits 
+    user.total_earnings
+    
+  end
+
+  def net_earnings #sum total of interest and earning withdrawal
+    user.total_earnings -  earning.withdraw_earning
+    # withdraw_earning
+  
+
+  end
 end

@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_09_104555) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_10_052749) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "earning_transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.decimal "amount"
+    t.uuid "earning_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["earning_id"], name: "index_earning_transactions_on_earning_id"
+  end
+
+  create_table "earnings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "wallet_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wallet_id"], name: "index_earnings_on_wallet_id"
+  end
 
   create_table "plans", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
@@ -41,6 +56,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_09_104555) do
     t.boolean "paid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
     t.index ["plan_id"], name: "index_portfolios_on_plan_id"
     t.index ["user_id"], name: "index_portfolios_on_user_id"
   end
@@ -48,9 +64,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_09_104555) do
   create_table "transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.decimal "amount"
     t.integer "transaction_type"
-    t.integer "status"
+    t.integer "status", default: 0
     t.string "address"
-    t.integer "coin_type"
+    t.integer "coin_type", default: 0
     t.uuid "wallet_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -80,6 +96,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_09_104555) do
     t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 
+  add_foreign_key "earning_transactions", "earnings"
+  add_foreign_key "earnings", "wallets"
   add_foreign_key "portfolio_interests", "portfolios"
   add_foreign_key "portfolios", "plans"
   add_foreign_key "portfolios", "users"

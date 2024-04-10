@@ -1,6 +1,6 @@
 class Api::V1::PortfolioInterestsController < ApplicationController
   before_action :set_portfolio_interest, only: %i[ show update destroy ]
-
+  before_action :set_portfolio, only: %i[create]
   # GET /portfolio_interests
   def index
     @portfolio_interests = PortfolioInterest.all
@@ -15,10 +15,11 @@ class Api::V1::PortfolioInterestsController < ApplicationController
 
   # POST /portfolio_interests
   def create
-    @portfolio_interest = PortfolioInterest.new(portfolio_interest_params)
+
+    @portfolio_interest = @portfolio.portfolio_interests.new(portfolio_interest_params)
 
     if @portfolio_interest.save
-      render json: @portfolio_interest, status: :created, location: @portfolio_interest
+      render json: @portfolio_interest, status: :created
     else
       render json: @portfolio_interest.errors, status: :unprocessable_entity
     end
@@ -44,8 +45,13 @@ class Api::V1::PortfolioInterestsController < ApplicationController
       @portfolio_interest = PortfolioInterest.find(params[:id])
     end
 
+    def set_portfolio 
+      @portfolio = Portfolio.find(params[:portfolio_id])
+      
+    end
+
     # Only allow a list of trusted parameters through.
     def portfolio_interest_params
-      params.require(:portfolio_interest).permit(:interest, :portfolio_id, :widthdrawn)
+      params.require(:portfolio_interest).permit(:interest, :widthdrawn)
     end
 end
