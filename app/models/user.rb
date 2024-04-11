@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
     has_one :wallet
     has_many :portfolios
+    has_one :pocket
     has_many :transactions, through: :wallet
     
     

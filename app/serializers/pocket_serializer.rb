@@ -1,4 +1,3 @@
 class PocketSerializer < ActiveModel::Serializer
-  attributes :id, :name, :code
-  has_one :user
+  attributes :id, :name , :btc, :bank, :eth
 end
