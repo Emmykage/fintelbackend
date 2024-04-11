@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :portfolio_interests
+      resources :pockets
+
       resources :portfolios do
         resources :portfolio_interests
 

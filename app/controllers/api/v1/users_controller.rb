@@ -38,6 +38,7 @@ class Api::V1::UsersController < ApplicationController
 
     if @current_user && @current_user.authenticate(user_params[:password])
       initialize_wallet
+      initialize_pocket
       token = encode_token({user_id: @current_user.id})
       render json: {user: @current_user, token: token}, status: :ok
     else
