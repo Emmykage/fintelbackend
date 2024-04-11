@@ -5,6 +5,8 @@ class Api::V1::UsersController < ApplicationController
   def index
     @users = User.all
 
+    # binding.b
+
     render json: @users
   end
 

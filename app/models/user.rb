@@ -9,18 +9,44 @@ class User < ApplicationRecord
 
     validates :email, :last_name, :first_name,  presence: true
 
-    enum :role, {client: 0, admin: 1} 
+    enum :role, {client: 0, admin: 1}
 
-    def total_earnings #based on profits
-        if portfolios.any?
-        portfolios.collect{|portfolio| portfolio.valid? ? portfolio.investment_interest : 0}.sum
+
+
+    def total_assets     #based on active assets
+        if portfolios.where(status: "active").any?
+            portfolios.where(status: "active").collect{|portfolio| portfolio.valid? ? portfolio.amount : 0}.sum
+        else 
+            0.0
+        end
+    end
+
+    def total_inactive_assets     #based on liquidated or inactive  assets
+        if portfolios.where(status: "inactive").any?
+            portfolios.where(status: "inactive").collect{|portfolio| portfolio.valid? ? portfolio.amount : 0}.sum
+        else 
+            0.0
+        end
+    end
+
+    def total_earnings #based on active  profits
+        if portfolios.where(status: "active").any?
+        portfolios.where(status: "active").collect{|portfolio| portfolio.valid? ? portfolio.investment_interest : 0}.sum
         else
             0.0
         end
     end
 
-    # def top_portfolio
-    #     portfolios.order(created_at: :asc).first
+    def total_withdrawn_earnings #based on liquidated  profits
+        if portfolios.where(status: "inactive").any?
+               portfolios.where(status: "inactive").collect{|portfolio| portfolio.valid? ? portfolio.investment_interest : 0}.sum
+        else
+            0.0
+        end
+    end
+
+    def top_portfolio
+        portfolios.order(created_at: :asc).first
     
-    # end
+    end
 end
