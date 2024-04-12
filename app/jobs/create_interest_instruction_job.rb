@@ -13,6 +13,13 @@ class CreateInterestInstructionJob < ApplicationJob
 
 
   def calculated_amount(portfolio)
+
+    unless portfolio.plan.rate
       portfolio.amount * 0.1
+    else
+      portfolio.amount * portfolio.plan.rate
+    end
+    
+
   end
 end
