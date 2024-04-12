@@ -20,18 +20,18 @@ class Wallet < ApplicationRecord
 
    def wallet_balance
 
-    (user.total_withdrawn_earnings +  deposit + earning.withdraw_earning) - (withdrawal)
+    (user.total_withdrawn_earnings + user.total_inactive_assets + deposit + earning.withdraw_earning) - (withdrawal + user.total_assets)
  
   end  
 
   def value 
-    (deposit + user.total_assets + total_earnings) - (withdrawal )
+    (user.total_assets + user.total_earnings)
 
     
   end
 
   def total_value 
-    (user.total_earnings + user.total_assets) - (earning.withdraw_earning)
+    (user.total_earnings )
     
   end
 

@@ -23,6 +23,9 @@ class ApplicationController < ActionController::API
 
     def authorized_user 
         decode_token = decode_token()
+        
+        # binding.b
+        
         if decode_token
                 user_id = decode_token = decode_token[0]['user_id']
                 @current_user = User.find_by(id: user_id)

@@ -16,7 +16,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def account
-    render json: {user: @current_user}, status: :ok
+    render json: @current_user, status: :ok
 
   end
 
