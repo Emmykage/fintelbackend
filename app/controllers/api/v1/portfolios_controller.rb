@@ -4,7 +4,7 @@ class Api::V1::PortfoliosController < ApplicationController
 
   # GET /portfolios
   def index
-    @portfolios = @current_user.portfolios
+    @portfolios = @current_user.portfolios.order(status: :asc)
 
     render json: @portfolios
   end
@@ -59,6 +59,6 @@ class Api::V1::PortfoliosController < ApplicationController
     # Only allow a list of trusted parameters through.
     def portfolio_params
 
-      params.require(:portfolio).permit(:amount, :paid, :plan_id, :paid)
+      params.require(:portfolio).permit(:amount, :paid, :plan_id, :paid, :status)
     end
 end
