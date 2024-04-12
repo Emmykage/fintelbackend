@@ -5,14 +5,14 @@ class Wallet < ApplicationRecord
 
   def deposit
     if transactions.where(transaction_type: "deposit").any?
-      transactions.where(transaction_type: "deposit").where(status: "approve").collect{|transaction| transaction.amount }.sum
+      transactions.where(transaction_type: "deposit").where(status: "approved").collect{|transaction| transaction.amount }.sum
     else
       0.0
     end
   end  
   def withdrawal
     if transactions.where(transaction_type: "withdrawal").any?
-      transactions.where(transaction_type: "withdrawal").where(status: "approve").collect{|transaction| transaction.amount }.sum
+      transactions.where(transaction_type: "withdrawal").where(status: "approved").collect{|transaction| transaction.amount }.sum
     else
       0.0
     end 
@@ -21,7 +21,7 @@ class Wallet < ApplicationRecord
    def wallet_balance
 
     (user.total_withdrawn_earnings +  deposit + earning.withdraw_earning) - (withdrawal)
-
+ 
   end  
 
   def value 
@@ -37,6 +37,11 @@ class Wallet < ApplicationRecord
 
   def profits 
     user.total_earnings
+  end
+
+  def total_profits
+    profits
+    
   end
 
   def net_earnings #sum total of interest and earning withdrawal

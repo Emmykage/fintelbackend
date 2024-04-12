@@ -25,6 +25,14 @@ class Api::V1::PortfolioInterestsController < ApplicationController
     end
   end
 
+  def create_interests 
+  
+
+    CreateInterestInstructionJob.perform_now
+
+    
+  end
+
   # PATCH/PUT /portfolio_interests/1
   def update
     if @portfolio_interest.update(portfolio_interest_params)

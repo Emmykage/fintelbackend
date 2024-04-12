@@ -5,7 +5,6 @@ class Api::V1::PocketsController < ApplicationController
   # GET /pockets
   def index
     @pockets = Pocket.all
-
     render json: @pockets
   end
 
@@ -26,7 +25,7 @@ class Api::V1::PocketsController < ApplicationController
     @pocket = Pocket.new(pocket_params)
 
     if @pocket.save
-      render json: @pocket, status: :created, location: @pocket
+      render json: @pocket, status: :created
     else
       render json: @pocket.errors, status: :unprocessable_entity
     end

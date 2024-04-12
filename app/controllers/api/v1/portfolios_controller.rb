@@ -35,6 +35,16 @@ class Api::V1::PortfoliosController < ApplicationController
     end
   end
 
+  # create portfolio interest 
+  def create_interests     
+     messages = CreateInterestInstructionJob.perform_now
+
+     render json: {message: "All interest has been added"}, status: :ok
+
+    
+  end
+
+
   # DELETE /portfolios/1
   def destroy
     @portfolio.destroy!

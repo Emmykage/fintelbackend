@@ -11,6 +11,12 @@ class Api::V1::WalletsController < ApplicationController
     render json: @wallet
   end
 
+  def get_adminstat
+    profits = @current_user.wallet.total_profits
+    # binding.b
+    render json: profits, status: :ok
+  end
+
   # GET /wallets/1
   def show
     render json: @wallet
@@ -21,7 +27,7 @@ class Api::V1::WalletsController < ApplicationController
     @wallet = Wallet.new(wallet_params)
 
     if @wallet.save
-      render json: @wallet, status: :created, location: @wallet
+      render json: @wallet, status: :created
     else
       render json: @wallet.errors, status: :unprocessable_entity
     end

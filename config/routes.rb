@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
 
+
   
   # post '/login', to: "users#login"
 
   namespace :api do
     namespace :v1 do
-      resources :portfolio_interests
+      resources :triggers,  only: %i[create update]
       resources :pockets do
         collection do
           get :get_pocket
@@ -13,6 +14,9 @@ Rails.application.routes.draw do
       end
 
       resources :portfolios do
+        collection do 
+            post :create_interests
+        end
         resources :portfolio_interests
 
       end
@@ -23,7 +27,9 @@ Rails.application.routes.draw do
         end
 
       end
-      resources :wallets
+      resources :wallets do
+        get "get_adminstat", on: :collection
+      end
       resources :earning_transactions
       resources :earnings
       resources :users do
