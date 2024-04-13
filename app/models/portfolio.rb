@@ -3,6 +3,8 @@ class Portfolio < ApplicationRecord
   belongs_to :plan
   has_many :portfolio_interests
 
+  before_create :valid_transaction?
+
   enum :status, {active: 0, inactive: 1}
 
   def investment_interest 
@@ -13,4 +15,11 @@ class Portfolio < ApplicationRecord
     end
     
   end 
+  def valid_transaction?
+    
+    raise ActiveRecord::RecordNotSaved, "You have limited funds in your wallet"  unless amount < wallet.wallet_balance 
+
+    true
+    
+  end
 end

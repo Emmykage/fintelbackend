@@ -67,4 +67,12 @@ class ApplicationController < ActionController::API
         @pocket = @current_user.create_pocket
       
     end
+
+    def intialize_statistics
+        @statistic ||= Statistic.all.any?
+        
+        return if @statistic
+        Statistic.create
+
+    end
 end

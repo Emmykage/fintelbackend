@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :statistics, only: %i[index]
       resources :triggers,  only: %i[create update]
       resources :pockets do
         collection do
