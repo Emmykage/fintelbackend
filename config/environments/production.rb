@@ -2,6 +2,22 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  config.action_mailer.delivery_method = :smtp
+  host = 'https://fintelvalues.com' #replace with your own url
+  config.action_mailer.default_url_options = { host: :host }
+
+  # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
+    :address              => "premium165.web-hosting.com",
+    :port                 => 587,
+    :user_name            => "support@fintelvalues.com",
+    :password             => "support-fintelvalues-2024",
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  }
+  # server1.web-hosting.com
+  # Code is not reloaded between requests.
+  config.cache_classes = true
 
   # Code is not reloaded between requests.
   config.enable_reloading = false
