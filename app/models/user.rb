@@ -7,10 +7,15 @@ class User < ApplicationRecord
     has_many :transactions, through: :wallet    
 
     validates :email, :last_name, :first_name,  presence: true
+    validates :email, uniqueness: { case_sensitive: false }
+    validates :password, length: { in: 6..20 }
+    validates :email, uniqueness: true, format: { with: /\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+\z/i, message: ":Please enter a valid email address."}
+
 
     enum :role, {client: 0, admin: 1}
 
     before_create :generate_confirmation_token
+    before_create :downcase_email
     after_create :send_confirmation_token
 
 
@@ -60,7 +65,11 @@ class User < ApplicationRecord
     end
 
     def send_confirmation_token
-        SendConfirmationInstructionJob(self).perform_now
+        SendConfirmationInstructionJob.perform_now(self)
       
+    end
+    
+    def downcase_email
+        self.email = email.downcase if email.present?
     end
 end

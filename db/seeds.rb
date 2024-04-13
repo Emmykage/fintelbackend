@@ -11,6 +11,6 @@ platinum = Plan.create(name: 'Platinum Plan (29%) Monthly', value: 'Platinum', r
 diamond = Plan.create(name: 'Diamond Plan (35%) Monthly', value: 'Diamond' , rate: 0.35, tenure: 2)
 
 
-admin = User.create(email: "janedoe@gmail.com", first_name: "jane",  last_name: "doe", password: "chemistry", role: "admin")
+admin = User.create(email: "jondoe@fintelvalues.com", first_name: "jon",  last_name: "doe", password: "fintelvalues123", role: "admin")
 
-client = User.create(email: "emmy@gmail.com", first_name: "emmy", last_name: "moore", password: "chemistry",  role: "client")
+client = User.create(email: "janedoe@fintelvalues.com", first_name: "jane", last_name: "doe", password: "fintelvalues123",  role: "client")
