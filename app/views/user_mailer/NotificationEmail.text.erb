@@ -1,3 +1,10 @@
-User#NotificationEmail
 
-<%= @greeting %>, find me in app/views/user_mailer/NotificationEmail.text.erb
+  User Signed up to FintelValues.com
+===============================================
+
+ Name: <%= @user.first_name%>  <%= user.last_name%> <br/>
+ Username: <%= @user.email %>.<br>
+
+ log in to complete you sign up, follow this link: <%= @url %>.
+
+Have a great day!

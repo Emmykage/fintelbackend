@@ -5,10 +5,11 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.ConfirmationEmail.subject
   #
-  def ConfirmationEmail
-    @greeting = "Hi"
+  def ConfirmationEmail(user)
+    @user = user
+    @url = confirmation_url
 
-    mail to: "to@example.org"
+    mail(to: @user.email, subject: "Email Comfirmation" )
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -19,6 +20,14 @@ class UserMailer < ApplicationMailer
   def NotificationEmail
     @greeting = "Hi"
 
-    mail to: "to@example.org"
+    mail(to: @admin_email, subject: "New User")
   end
+
+  private
+  def confirmation_url
+    "#{Rails.application.config.action_mailer.default_url_options[:host]}/confirm_email?confirmation_token=1234567"
+    
+  end
+
+
 end

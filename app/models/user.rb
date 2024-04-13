@@ -4,13 +4,14 @@ class User < ApplicationRecord
     has_one :wallet
     has_many :portfolios
     has_one :pocket
-    has_many :transactions, through: :wallet
-    
-    
+    has_many :transactions, through: :wallet    
 
     validates :email, :last_name, :first_name,  presence: true
 
     enum :role, {client: 0, admin: 1}
+
+    before_create :generate_confirmation_token
+    after_create :send_confirmation_token
 
 
 
@@ -49,5 +50,17 @@ class User < ApplicationRecord
     def top_portfolio
         portfolios.order(created_at: :asc).first
     
+    end
+
+
+    private 
+    def generate_confirmation_token
+          self.confirmation_token =  SecureRandom.hex(10)
+          self.confirmation_sent_at = Time.now
+    end
+
+    def send_confirmation_token
+        SendConfirmationInstructionJob(self).perform_now
+      
     end
 end
