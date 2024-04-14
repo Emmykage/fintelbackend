@@ -65,7 +65,7 @@ class User < ApplicationRecord
     end
 
     def send_confirmation_token
-        SendConfirmationInstructionJob.perform_now(self)
+        SendConfirmationInstructionJob.perform_later(self)
       
     end
     
