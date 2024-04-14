@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :authorize,  except: [:create, :login]
+  before_action :authorize,  except: [:create, :login, :index]
   # before_action :
   # GET /users
   def index

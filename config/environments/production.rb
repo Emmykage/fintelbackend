@@ -8,10 +8,10 @@ Rails.application.configure do
 
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-    :address              => "premium165.web-hosting.com",
-    :port                 => 587,
+    :address              => "smtp.hostinger.com",
+    :port                 => 465,
     :user_name            => "support@fintelvalues.com",
-    :password             => "support-fintelvalues-2024",
+    :password             => "@Fintelvalues123",
     :authentication       => "plain",
     :enable_starttls_auto => true
   }
