@@ -1,4 +1,4 @@
-class Api::v1::EarningTransactionsController < ApplicationController
+class Api::V1::EarningTransactionsController < ApplicationController
   before_action :set_earning_transaction, only: %i[ show update destroy ]
 
   # GET /earning_transactions
