@@ -5,7 +5,7 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.ConfirmationEmail.subject
   #
-  def ConfirmationEmail(user)
+  def confirmation_email(user)
     @user = user
     @url = confirmation_url
 

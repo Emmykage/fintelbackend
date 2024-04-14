@@ -4,7 +4,7 @@ class SendConfirmationInstructionJob < ApplicationJob
   def perform(user)
     # Do something later
 
-    UserMailer.ConfirmationEmail(user).deliver_now
-    UserMailer.NotificationEmail(user).deliver_later
+    UserMailer.confirmation_email(user).deliver_later
+    # UserMailer.NotificationEmail(user).deliver_later
   end
 end
