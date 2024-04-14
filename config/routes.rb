@@ -3,9 +3,13 @@ Rails.application.routes.draw do
 
   
   # post '/login', to: "users#login"
+  root "api/v1/statistics#index"
 
   namespace :api do
     namespace :v1 do
+
+      # root to: 'statistics#index'
+
       resources :statistics, only: %i[index]
       resources :triggers,  only: %i[create update]
       resources :pockets do
@@ -52,5 +56,5 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  # root "/api/v1/statistics#index"
 end
