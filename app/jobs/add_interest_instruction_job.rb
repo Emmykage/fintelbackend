@@ -5,6 +5,7 @@ class AddInterestInstructionJob < ApplicationJob
     # Do something later
   PortfolioInterest.all.each do |interest|
 
-  interest.update_interest
+    interest.update_interest
+  end
   end
 end
