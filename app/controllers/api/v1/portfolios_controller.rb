@@ -59,6 +59,6 @@ class Api::V1::PortfoliosController < ApplicationController
     # Only allow a list of trusted parameters through.
     def portfolio_params
 
-      params.require(:portfolio).permit(:amount, :paid, :plan_id, :paid, :status)
+      params.require(:portfolio).permit(:amount, :paid, :plan_id, :paid, :status, :rate)
     end
 end

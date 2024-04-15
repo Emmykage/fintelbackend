@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       resources :plans
       resources :transactions do
         collection do 
-          post :user_transaction
+          get :user_transaction
         end
 
       end

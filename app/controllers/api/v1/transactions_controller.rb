@@ -12,7 +12,7 @@ class Api::V1::TransactionsController < ApplicationController
 
   def user_transaction
     @transactions = @wallet.transactions
-
+    
     render json: @transactions
     end
 
