@@ -2,7 +2,7 @@ require "active_support/core_ext/integer/time"
 
 
 Rails.application.routes.default_url_options = {
-  host: "https://fintelvalues.com"
+  host: "https://fintelvalues-70aea147fb44.herokuapp.com"
 }
 
 Rails.application.configure do
