@@ -7,8 +7,8 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-platinum = Plan.create(name: 'Platinum Plan (29%) Monthly', value: 'Platinum', rate: 0.29, tenure: 2)
-diamond = Plan.create(name: 'Diamond Plan (35%) Monthly', value: 'Diamond' , rate: 0.35, tenure: 2)
+platinum = Plan.create(name: 'Platinum Plan (29%) Monthly', value: 'Platinum', rate: 0.00966667, tenure: 2)
+diamond = Plan.create(name: 'Diamond Plan (35%) Monthly', value: 'Diamond' , rate: 0.0116667, tenure: 2)
 
 
 admin = User.create(email: "jondoe@fintelvalues.com", first_name: "jon",  last_name: "doe", password: "fintelvalues123", role: "admin")
