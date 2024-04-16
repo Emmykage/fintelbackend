@@ -57,6 +57,11 @@ class User < ApplicationRecord
     
     end
 
+    def balance
+        wallet.wallet_balance
+      
+    end
+
 
     private 
     def generate_confirmation_token

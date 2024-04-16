@@ -6,7 +6,7 @@ class Api::V1::WalletsController < ApplicationController
   # GET /wallets
   def index
     @wallet = @current_user.wallet
-
+    
     render json: @wallet
   end
 
