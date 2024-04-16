@@ -1,10 +1,14 @@
 class Api::V1::PortfolioInterestsController < ApplicationController
+  before_action :authorize
   before_action :set_portfolio_interest, only: %i[ show update destroy ]
   before_action :set_portfolio, only: %i[create]
+
+  before_action :set_user_portfolio, only: %i[index]
   # GET /portfolio_interests
   def index
-    @portfolio_interests = PortfolioInterest.all
+    @portfolio_interests = portfolio_interests.order(created_at: :desc)
 
+    binding.b
     render json: @portfolio_interests
   end
 
@@ -57,6 +61,7 @@ class Api::V1::PortfolioInterestsController < ApplicationController
       @portfolio = Portfolio.find(params[:portfolio_id])
       
     end
+
 
     # Only allow a list of trusted parameters through.
     def portfolio_interest_params
