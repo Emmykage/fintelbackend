@@ -40,7 +40,8 @@ class Wallet < ApplicationRecord
   end
 
   def total_profits
-    profits
+    user.total_earnings
+
     
   end
 

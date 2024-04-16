@@ -6,14 +6,12 @@ class Api::V1::WalletsController < ApplicationController
   # GET /wallets
   def index
     @wallet = @current_user.wallet
-    # binding.b
 
     render json: @wallet
   end
 
   def get_adminstat
-    profits = @current_user.wallet.total_profits
-    # binding.b
+    profits = @current_user.wallet
     render json: profits, status: :ok
   end
 
