@@ -71,7 +71,6 @@ class User < ApplicationRecord
 
     def send_confirmation_token
         SendConfirmationInstructionJob.perform_later(self)
-      
     end
     
     def downcase_email

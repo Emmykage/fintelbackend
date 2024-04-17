@@ -8,8 +8,8 @@ Rails.application.routes.default_url_options = {
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   config.action_mailer.delivery_method = :smtp
-  host = 'https://fintelvalues.com' #replace with your own url
-  config.action_mailer.default_url_options = { host: :host }
+  host = 'fintelvalues.com' #replace with your own url
+  config.action_mailer.default_url_options = { host: host }
 
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {

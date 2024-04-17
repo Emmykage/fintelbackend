@@ -1,7 +1,7 @@
 class Wallet < ApplicationRecord
   belongs_to :user
   has_one :earning
-  has_many :transactions
+  has_many :transactions,  dependent: :destroy
 
   def deposit
     if transactions.where(transaction_type: "deposit").any?
@@ -41,7 +41,6 @@ class Wallet < ApplicationRecord
 
   def total_profits
     user.total_earnings
-
     
   end
 
