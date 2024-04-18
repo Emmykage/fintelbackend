@@ -44,9 +44,17 @@ class User < ApplicationRecord
         end
     end
 
+    # def total_withdrawn_earnings #based on liquidated  profits
+    #     if portfolios.where(status: "inactive").any?
+    #            portfolios.where(status: "inactive").collect{|portfolio| portfolio.valid? ? portfolio.investment_interest : 0}.sum
+    #     else
+    #         0.0
+    #     end
+    # end
+
     def total_withdrawn_earnings #based on liquidated  profits
-        if portfolios.where(status: "inactive").any?
-               portfolios.where(status: "inactive").collect{|portfolio| portfolio.valid? ? portfolio.investment_interest : 0}.sum
+        if portfolios.where(status: "active").any?
+               portfolios.where(status: "active").collect{|portfolio| portfolio.valid? ? portfolio.withdrawn_interest : 0}.sum
         else
             0.0
         end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_12_231740) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_18_021954) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -87,6 +87,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_12_231740) do
     t.boolean "widthdrawn"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "withdrawn", default: false
     t.index ["portfolio_id"], name: "index_portfolio_interests_on_portfolio_id"
   end
 

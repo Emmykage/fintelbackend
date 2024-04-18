@@ -21,6 +21,10 @@ Rails.application.routes.draw do
       resources :portfolios do
         collection do 
             post :create_interests
+          
+        end
+        member do
+          put :liquidate_profit
         end
         resources :portfolio_interests
 

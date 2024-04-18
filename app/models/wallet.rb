@@ -19,19 +19,18 @@ class Wallet < ApplicationRecord
    end
 
    def wallet_balance
-
-    (user.total_withdrawn_earnings + user.total_inactive_assets + deposit + earning.withdraw_earning) - (withdrawal + user.total_assets)
  
+    (user.total_withdrawn_earnings + user.total_inactive_assets + deposit + earning.withdraw_earning) - (withdrawal + user.total_assets)
+
   end  
 
-  def value 
-    (user.total_assets + user.total_earnings)
-
+  # def value 
+  #   user.total_withdrawn_earnings
     
-  end
+  # end
 
   def total_value 
-    (user.total_earnings )
+    user.total_assets
     
   end
 
@@ -40,7 +39,7 @@ class Wallet < ApplicationRecord
   end
 
   def total_profits
-    user.total_earnings
+    user.total_earnings - user.total_withdrawn_earnings
     
   end
 

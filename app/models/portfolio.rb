@@ -15,6 +15,14 @@ class Portfolio < ApplicationRecord
     end
     
   end 
+  def withdrawn_interest
+    if portfolio_interests.where(withdrawn: true).any?
+      portfolio_interests.where(withdrawn: true).collect{|profit| profit.interest}.sum
+      
+    else
+      0.0
+    end
+  end
   def valid_transaction?
     
     raise ActiveRecord::RecordNotSaved, "You have limited funds in your wallet"  unless amount < user.balance 

@@ -1,5 +1,5 @@
 class Api::V1::PortfoliosController < ApplicationController
-  before_action :set_portfolio, only: %i[ show update destroy ]
+  before_action :set_portfolio, only: %i[ show update destroy liquidate_profit ]
   before_action :authorize
 
   # GET /portfolios
@@ -32,6 +32,15 @@ class Api::V1::PortfoliosController < ApplicationController
       render json: @portfolio
     else
       render json: @portfolio.errors, status: :unprocessable_entity
+    end
+  end
+
+  def liquidate_profit
+    @portfolio_interests = @portfolio.portfolio_interests
+    if @portfolio_interests.update_all(withdrawn: true)
+      render json: @pocket
+    else
+      render json: @pocket.errors, status: :unprocessable_entity
     end
   end
 
