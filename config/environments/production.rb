@@ -14,7 +14,7 @@ Rails.application.configure do
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
     :address              => "smtp.hostinger.com",
-    :port                 => 465,
+    :port                 => 587,
     :user_name            => "support@fintelvalues.com",
     :password             => "@Fintelvalues123",
     :authentication       => "plain",
