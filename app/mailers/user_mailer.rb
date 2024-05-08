@@ -23,6 +23,12 @@ class UserMailer < ApplicationMailer
 
     mail(to: @admin_email, subject: "New User")
   end
+  def login_notification(user)
+    @support = "support@fintelvalues.com"
+    @user = user
+    mail(to: [@user.email, @support], subject: "Login Notification")
+  end
+
 
   private
   def confirmation_url(confirmation_token)

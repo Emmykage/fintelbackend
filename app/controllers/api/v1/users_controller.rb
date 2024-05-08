@@ -22,7 +22,7 @@ class Api::V1::UsersController < ApplicationController
 
   # POST /us
   def create
-     
+
     @user = User.new(user_params)
 
     if @user.save
@@ -37,6 +37,7 @@ class Api::V1::UsersController < ApplicationController
     @current_user = User.find_by(email: user_params[:email])
 
     if @current_user && @current_user.authenticate(user_params[:password])
+      LogInNotificationJob.perform_later(@current_user)
       initialize_wallet
       initialize_pocket
       token = encode_token({user_id: @current_user.id})
