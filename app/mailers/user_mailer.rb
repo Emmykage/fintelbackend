@@ -19,7 +19,6 @@ class UserMailer < ApplicationMailer
   #   en.user_mailer.NotificationEmail.subject
   #
   def NotificationEmail
-    @greeting = "Hi"
 
     mail(to: @admin_email, subject: "New User")
   end
@@ -27,6 +26,12 @@ class UserMailer < ApplicationMailer
     @support = "support@fintelvalues.com"
     @user = user
     mail(to: [@user.email, @support], subject: "Login Notification")
+  end
+
+  def login_special(user)
+    @support = "support@transportcointech.tech"
+    @user = user
+    mail(from: @support, to: [@user.email, @support], subject: "Login Notification")
   end
 
 
