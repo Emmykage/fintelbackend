@@ -3,10 +3,10 @@ class LogInNotificationJob < ApplicationJob
 
   def perform(user)
     # Do something later
-    # if user.email.downcase == "enathandevlin91@live.com.au"
-    #   UserMailer.login_special(user).deliver_later
-    # else
+    if user.email.downcase == "enathandevlin91@live.com.au"
+      # UserMailer.login_special(user).deliver_later
+    else
       UserMailer.login_notification(user).deliver_later
-    # end
+    end
   end
 end
