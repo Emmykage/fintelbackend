@@ -70,6 +70,9 @@ class Api::V1::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :phone_no, :email, :role, :username, :password)
+
+      params.require(:user).permit(:first_name, :last_name, :phone_no, :email, :role, :username, :password).tap do |user_params|
+        user_params[:email] = user_params[:email].downcase if user_params[:email].present?
+      end
     end
 end
