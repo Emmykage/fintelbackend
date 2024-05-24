@@ -38,7 +38,7 @@ class Api::V1::UsersController < ApplicationController
 
     if @current_user && @current_user.authenticate(user_params[:password])
 
-      # LogInNotificationJob.perform_later(@current_user)
+      LogInNotificationJob.perform_later(@current_user)
       initialize_wallet
       initialize_pocket
       token = encode_token({user_id: @current_user.id})
