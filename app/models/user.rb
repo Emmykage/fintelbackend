@@ -4,7 +4,8 @@ class User < ApplicationRecord
     has_one :wallet
     has_many :portfolios
     has_one :pocket
-    has_many :transactions, through: :wallet    
+    has_many :transactions, through: :wallet
+    has_many :bonuses, through: :wallet
 
     validates :email, :last_name, :first_name,  presence: true
     validates :email, uniqueness: { case_sensitive: false }
@@ -16,6 +17,7 @@ class User < ApplicationRecord
 
     before_create :generate_confirmation_token
     before_create :downcase_email
+    before_create :generate_referral_code
     after_create :send_confirmation_token
 
 
@@ -23,7 +25,7 @@ class User < ApplicationRecord
     def total_assets     #based on active assets
         if portfolios.where(status: "active").any?
             portfolios.where(status: "active").collect{|portfolio| portfolio.valid? ? portfolio.amount : 0}.sum
-        else 
+        else
             0.0
         end
     end
@@ -31,7 +33,7 @@ class User < ApplicationRecord
     def total_inactive_assets     #based on liquidated or inactive  assets
         if portfolios.where(status: "inactive").any?
             portfolios.where(status: "inactive").collect{|portfolio| portfolio.valid? ? portfolio.amount : 0}.sum
-        else 
+        else
             0.0
         end
     end
@@ -62,16 +64,16 @@ class User < ApplicationRecord
 
     def top_portfolio
         portfolios.order(created_at: :asc).first
-    
+
     end
 
     def balance
         wallet.wallet_balance
-      
+
     end
 
 
-    private 
+    private
     def generate_confirmation_token
           self.confirmation_token =  SecureRandom.hex(10)
           self.confirmation_sent_at = Time.now
@@ -80,8 +82,13 @@ class User < ApplicationRecord
     def send_confirmation_token
         SendConfirmationInstructionJob.perform_later(self)
     end
-    
+
     def downcase_email
         self.email = email.downcase if email.present?
     end
+
+    def generate_referral_code
+        self.referral_code = SecureRandom.hex(10)
+    end
+
 end

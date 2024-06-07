@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
 
-  
+
   # post '/login', to: "users#login"
   root "api/v1/statistics#index"
 
@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
       # root to: 'statistics#index'
 
+
+      resources :referrals, only: [:show]
       resources :statistics, only: %i[index]
       resources :triggers,  only: %i[create update]
       resources :pockets do
@@ -19,9 +21,9 @@ Rails.application.routes.draw do
       end
 
       resources :portfolios do
-        collection do 
+        collection do
             post :create_interests
-          
+
         end
         member do
           put :liquidate_profit
@@ -31,12 +33,13 @@ Rails.application.routes.draw do
       end
       resources :plans
       resources :transactions do
-        collection do 
+        collection do
           get :user_transaction
         end
 
       end
       resources :wallets do
+        resources :bonuses
         get "get_adminstat", on: :collection
       end
       resources :earning_transactions

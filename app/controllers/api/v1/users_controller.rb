@@ -25,6 +25,11 @@ class Api::V1::UsersController < ApplicationController
 
     @user = User.new(user_params)
 
+    if params[:referrer].present?
+      referrer = User.find_by(referral_code: params[:referrer])
+      @user.referrer = referrer if referrer
+    end
+
     if @user.save
       token = encode_token({user_id: @user.id})
       render json: {user: @user, token: token}, status: :created
