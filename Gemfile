@@ -30,6 +30,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.2'
 
+gem 'aws-sdk-s3'
 
 
 # Reduces boot times through caching; required in config/boot.rb
@@ -52,4 +53,3 @@ group :development do
   gem 'letter_opener'
 
 end
-
