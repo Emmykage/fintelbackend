@@ -43,7 +43,7 @@ class Api::V1::UsersController < ApplicationController
 
       generate_referral_code if @current_user.referral_code.nil?
 
-      LogInNotificationJob.perform_later(@current_user)
+      # LogInNotificationJob.perform_later(@current_user)
       initialize_wallet
       initialize_pocket
       token = encode_token({user_id: @current_user.id})
