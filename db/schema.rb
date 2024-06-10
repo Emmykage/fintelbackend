@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_07_094944) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_09_210130) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -147,6 +147,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_07_094944) do
     t.datetime "confirmation_sent_at"
     t.string "confirmation_token"
     t.string "referral_code"
+    t.uuid "referrer_id"
   end
 
   create_table "wallets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

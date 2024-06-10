@@ -25,10 +25,8 @@ class Api::V1::UsersController < ApplicationController
 
     @user = User.new(user_params)
 
-    if params[:referrer].present?
-      referrer = User.find_by(referral_code: params[:referrer])
-      @user.referrer = referrer if referrer
-    end
+    set_referrer_id if params[:user][:referrer].present?
+
 
     if @user.save
       token = encode_token({user_id: @user.id})
@@ -42,6 +40,8 @@ class Api::V1::UsersController < ApplicationController
     @current_user = User.find_by(email: user_params[:email])
 
     if @current_user && @current_user.authenticate(user_params[:password])
+
+      generate_referral_code if @current_user.referral_code.nil?
 
       LogInNotificationJob.perform_later(@current_user)
       initialize_wallet
@@ -80,4 +80,15 @@ class Api::V1::UsersController < ApplicationController
         user_params[:email] = user_params[:email].downcase if user_params[:email].present?
       end
     end
+
+    def set_referrer_id
+      referrer = User.find_by(referral_code: params[:user][:referrer])
+      @user.referrer_id = referrer.id if referrer
+    end
+
+    def generate_referral_code
+         @current_user.update_columns(referral_code: SecureRandom.hex(10))
+    end
+
+
 end

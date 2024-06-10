@@ -7,6 +7,9 @@ class User < ApplicationRecord
     has_many :transactions, through: :wallet
     has_many :bonuses, through: :wallet
 
+    belongs_to :referrer, class_name: "User", optional: true
+    has_many :referred_users, class_name: "User", foreign_key: 'referrer_id'
+
     validates :email, :last_name, :first_name,  presence: true
     validates :email, uniqueness: { case_sensitive: false }
     validates :password, length: { in: 6..20 }
@@ -72,7 +75,9 @@ class User < ApplicationRecord
 
     end
 
-
+    def generate_referral_code
+        self.referral_code = SecureRandom.hex(10)
+    end
     private
     def generate_confirmation_token
           self.confirmation_token =  SecureRandom.hex(10)
@@ -87,8 +92,6 @@ class User < ApplicationRecord
         self.email = email.downcase if email.present?
     end
 
-    def generate_referral_code
-        self.referral_code = SecureRandom.hex(10)
-    end
+
 
 end
