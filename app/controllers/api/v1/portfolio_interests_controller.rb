@@ -8,7 +8,6 @@ class Api::V1::PortfolioInterestsController < ApplicationController
   def index
     @portfolio_interests = portfolio_interests.order(created_at: :desc)
 
-    binding.b
     render json: @portfolio_interests
   end
 
@@ -29,12 +28,12 @@ class Api::V1::PortfolioInterestsController < ApplicationController
     end
   end
 
-  def create_interests 
-  
+  def create_interests
+
 
     CreateInterestInstructionJob.perform_now
 
-    
+
   end
 
   # PATCH/PUT /portfolio_interests/1
@@ -57,9 +56,9 @@ class Api::V1::PortfolioInterestsController < ApplicationController
       @portfolio_interest = PortfolioInterest.find(params[:id])
     end
 
-    def set_portfolio 
+    def set_portfolio
       @portfolio = Portfolio.find(params[:portfolio_id])
-      
+
     end
 
 

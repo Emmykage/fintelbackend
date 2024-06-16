@@ -5,9 +5,7 @@ class Api::V1::UsersController < ApplicationController
   def index
     @users = User.all
 
-    # binding.b
-
-    render json: @users
+   render json: @users
   end
 
   # GET /users/1
@@ -26,8 +24,6 @@ class Api::V1::UsersController < ApplicationController
     @user = User.new(user_params)
 
     set_referrer_id if params[:user][:referrer].present?
-
-
     if @user.save
       token = encode_token({user_id: @user.id})
       render json: {user: @user, token: token}, status: :created

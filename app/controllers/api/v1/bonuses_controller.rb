@@ -49,7 +49,6 @@ class Api::V1::BonusesController < ApplicationController
 
     def get_wallet
       @wallet = Wallet.find(params[:wallet_id])
-      # binding.b
     end
 
 

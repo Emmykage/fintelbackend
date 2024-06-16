@@ -3,11 +3,10 @@ class CreateInterestInstructionJob < ApplicationJob
 
   def perform(*args)
     # Do something later
-    Portfolio.all.each do |portfolio|     
-      
+    Portfolio.all.each do |portfolio|
+
       # PortfolioInterest.create(portfolio: portfolio, amount: calculated_amount(amount))
     portfolio_interest = portfolio.portfolio_interests.create(interest: calculated_amount(portfolio))
-      # binding.b
     end
   end
 
@@ -19,7 +18,7 @@ class CreateInterestInstructionJob < ApplicationJob
     else
       portfolio.amount * portfolio.plan.rate
     end
-    
+
 
   end
 end
