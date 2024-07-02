@@ -5,7 +5,6 @@ class Api::V1::PortfoliosController < ApplicationController
   # GET /portfolios
   def index
     @portfolios = @current_user.portfolios.order(status: :asc)
-
     render json: @portfolios
   end
 
@@ -38,19 +37,19 @@ class Api::V1::PortfoliosController < ApplicationController
   def liquidate_profit
     @portfolio_interests = @portfolio.portfolio_interests
     if @portfolio_interests.update_all(withdrawn: true)
-      render json: @pocket
+      render json: @portfolio_interests
     else
-      render json: @pocket.errors, status: :unprocessable_entity
+      render json: @portfolio_interests.errors, status: :unprocessable_entity
     end
   end
 
-  # create portfolio interest 
-  def create_interests     
+  # create portfolio interest
+  def create_interests
      messages = CreateInterestInstructionJob.perform_now
 
      render json: {message: "All interest has been added"}, status: :ok
 
-    
+
   end
 
 

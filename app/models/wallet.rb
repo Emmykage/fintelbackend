@@ -33,10 +33,6 @@ class Wallet < ApplicationRecord
 
   end
 
-  # def value
-  #   user.total_withdrawn_earnings
-
-  # end
 
   def total_value
     user.total_assets
