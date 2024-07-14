@@ -29,7 +29,7 @@ class Wallet < ApplicationRecord
 
    def wallet_balance
 
-    (user.total_withdrawn_earnings + user.total_inactive_assets + deposit + earning.withdraw_earning + bonus ) - (withdrawal + user.total_assets)
+    (user.total_withdrawn_earnings_client + user.total_inactive_assets + deposit + earning.withdraw_earning + bonus ) - (withdrawal + user.total_assets)
 
   end
 

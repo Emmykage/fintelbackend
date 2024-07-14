@@ -64,6 +64,9 @@ class User < ApplicationRecord
             0.0
         end
     end
+    def total_withdrawn_earnings_client #based on liquidated  profits at 90% withdrawable
+       total_withdrawn_earnings * 0.9
+    end
 
     def top_portfolio
         portfolios.order(created_at: :asc).first
