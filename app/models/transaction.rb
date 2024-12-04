@@ -10,17 +10,17 @@ class Transaction < ApplicationRecord
 
   before_create :valid_transaction?
 
-  
-  def proof_url 
+
+  def proof_url
     Rails.application.routes.url_helpers.url_for(proof) if proof.attached?
   end
-  
+
 
   def valid_transaction?
-    
+
     raise ActiveRecord::RecordNotSaved, "You have limited funds in your wallet"  unless amount < wallet.wallet_balance || transaction_type == "deposit"
 
     true
-    
+
   end
 end
