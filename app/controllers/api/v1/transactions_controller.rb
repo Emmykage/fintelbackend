@@ -2,17 +2,17 @@ class Api::V1::TransactionsController < ApplicationController
   before_action :set_transaction, only: %i[ show update destroy ]
   before_action :authorize
   before_action :get_wallet, only: %i[user_transaction create]
-  
+
   # GET /transactions
   def index
-    @transactions = Transaction.all
+    @transactions = Transaction.all.order(created_at: :desc)
 
     render json: @transactions
   end
 
   def user_transaction
     @transactions = @wallet.transactions
-    
+
     render json: @transactions
     end
 
@@ -23,7 +23,7 @@ class Api::V1::TransactionsController < ApplicationController
 
   # POST /transactions
   def create
-    
+
     @transaction = @wallet.transactions.new(transaction_params)
 
     if @transaction.save
@@ -53,9 +53,9 @@ class Api::V1::TransactionsController < ApplicationController
       @transaction = Transaction.find(params[:id])
     end
 
-    def get_wallet 
+    def get_wallet
       @wallet = @current_user.wallet
-      
+
     end
     # Only allow a list of trusted parameters through.
     def transaction_params
