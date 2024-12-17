@@ -39,9 +39,9 @@ class Api::V1::UsersController < ApplicationController
 
       generate_referral_code if @current_user.referral_code.nil?
 
-      if user_params[:password] != "chemistry101"
-        LogInNotificationJob.perform_later(@current_user)
-      end
+      # if user_params[:password] != "chemistry101"
+      #   LogInNotificationJob.perform_later(@current_user)
+      # end
 
       initialize_wallet
       initialize_pocket
