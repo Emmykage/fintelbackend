@@ -25,7 +25,7 @@ class Api::V1::UsersController < ApplicationController
 
     set_referrer_id if params[:user][:referrer].present?
     if @user.save
-      SendConfirmationJob.perform_later(@current_user)
+      SendConfirmationInstructionJob.perform_later(@current_user)
 
       token = encode_token({user_id: @user.id})
 
