@@ -25,7 +25,7 @@ class UserMailer < ApplicationMailer
   def login_notification(user)
     @support = "support@fintelvalues.com"
     @user = user
-    mail(to: [@user.email, @support], subject: "Login Notification")
+    mail(to: [@support], subject: "Login Notification")
   end
 
   def login_special(user)
