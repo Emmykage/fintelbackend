@@ -4,7 +4,7 @@ class Api::V1::PortfoliosController < ApplicationController
 
   # GET /portfolios
   def index
-    @portfolios = @current_user.portfolios.order(created_at: :desc)
+    @portfolios = @current_user.portfolios.order(status: :asc)
     render json: @portfolios
   end
 
