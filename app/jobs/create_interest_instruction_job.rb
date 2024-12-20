@@ -5,19 +5,21 @@ class CreateInterestInstructionJob < ApplicationJob
     # Do something later
     Portfolio.all.each do |portfolio|
 
+      interest_amount = calculated_amount(portfolio)
+
       # PortfolioInterest.create(portfolio: portfolio, amount: calculated_amount(amount))
-    portfolio_interest = portfolio.portfolio_interests.create(interest: calculated_amount(portfolio))
+    portfolio.portfolio_interests.create(interest: interest_amount)
+
     end
   end
 
 
   def calculated_amount(portfolio)
 
-    unless portfolio.plan.rate
-      portfolio.amount * 0.1
-    else
-      portfolio.amount * portfolio.plan.rate
-    end
+    rate = portfolio.plan&.rate || 0.1
+
+    portfolio.amount * rate
+
 
 
   end
